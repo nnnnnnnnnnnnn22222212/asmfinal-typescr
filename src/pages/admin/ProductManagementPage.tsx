@@ -78,7 +78,9 @@ const  ProductManagementPage = (props) => {
       image: item.image.file.thumbUrl
     }
   }))
-  return <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} />;
+  return <div >
+    <button ><Link to={'/admin/products/add'}>Thêm</Link></button>
+    <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} />;</div>
 
 };
 

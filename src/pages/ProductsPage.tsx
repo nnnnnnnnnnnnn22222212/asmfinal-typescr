@@ -2,8 +2,24 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Card, Col, Row } from 'antd';
+import axios from 'axios';
 
 const ProductPage = (props) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  }
+
+  const handleSearch = () => {
+    axios.get('/products', { params: { q: searchTerm } })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
     interface check{
         id: number,
         name: string
@@ -27,8 +43,10 @@ const ProductPage = (props) => {
     {props.products.map((item:check) => 
 {
     return (
+      
         <div key={item.id}>
-        
+         <input type="text" value={searchTerm} onChange={handleInputChange} />
+      <button onClick={handleSearch}>Search</button>
         <Link to={`/products/${item.id}`}>
              <Col span={8}>
       <Card title={item.name} bordered={false}>
